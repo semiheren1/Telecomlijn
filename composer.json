@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Parkeren\\": "src/",
+            "Smarty\\": "vendor/smarty/smarty/libs/Smarty.class.php",
+            "Handlers\\": "handlers/"
+        }
+    },
+    "require": {
+        "smarty/smarty": "^4.3",
+        "ext-pdo": "*"
+    }
+}

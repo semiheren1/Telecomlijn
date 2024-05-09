@@ -18,88 +18,73 @@ $recenteKentekens = $beheerders->getRecenteKentekens();
     <title>Beheerdersdashboard</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            background-color: white;
         }
 
-        h2 {
-            margin-bottom: 20px;
+        #container {
+            text-align: center;
+            position: relative;
+            min-height: 95vh;
+            margin-top: 200px; /* Ruimte toegevoegd bovenaan voor de navbar */
         }
 
-        table {
-            width: 50%;
-            border-collapse: collapse;
-            cursor: pointer;
+        #search-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px; /* Ruimte toegevoegd onder de afbeelding */
         }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
+        #postcard-container {
+            position: absolute;
+            bottom: 250px; /* Afstand tussen de postcards en de onderkant */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border-radius: 10px;
         }
 
-        th {
-            background-color: lightseagreen;
+        .postcard {
+            width: 200px;
+            padding: 20px;
+            border: 3px solid lightseagreen;
+            border-radius: 15px;
+            background-color: white;
+            color: lightseagreen;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        #kentekenButton {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: lightseagreen;
+        .postcard a {
+            text-decoration: none;
+            color: lightseagreen;
         }
     </style>
 </head>
 <body>
-<h2>5 recente Kenetekens</h2>
+<div id="container">
+    <img id="search-image" src="gemeentefoto.jpg" alt="Zoekafbeelding">
+    <div id="postcard-container">
+        <div class="postcard">
+            <h2><a href="kentekensBeheerder.php">Kentekens</a></h2>
+            <p></p>
+        </div>
 
-<table id="kentekenTable">
-    <tr>
-        <th>Kenteken ID</th>
-        <th>Titel</th>
-        <th>Beschrijving</th>
-        <th>Datum</th>
-        <th>Email</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
+        <div class="postcard">
+            <h2><a href="bedrjivenBeheerder.php.php">Bedrijven</a></h2>
+            <p></p>
+        </div>
 
-    </tr>
+        <div class="postcard">
+            <h2><a href="allebeheerders.php">Beheerders</a></h2>
+            <p></p>
+        </div>
+    </div>
+</div>
 
-
-    <?php foreach ($recenteKentekens as $kenteken): ?>
-        <tr class="kentekenRow" data-kentekenid="<?php echo $kenteken['kentekenid']; ?>">
-            <td><?php echo $kenteken['kentekenid']; ?></td>
-            <td><?php echo $kenteken['titel']; ?></td>
-            <td><?php echo $kenteken['beschrijving']; ?></td>
-            <td><?php echo $kenteken['datum']; ?></td>
-            <td><?php echo $kenteken['Email']; ?></td>
-            <td><?php echo $kenteken['latitude']; ?></td>
-            <td><?php echo $kenteken['longitude']; ?></td>
-
-        </tr>
-    <?php endforeach; ?>
-</table>
-
-<button id="kentekenButton" onclick="window.location.href='allekentekens.php'">Zie alle kentekens</button>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var rows = document.getElementsByClassName('kentekenRow');
-        Array.from(rows).forEach(function (row) {
-            row.addEventListener('click', function () {
-                var kentekenId = this.getAttribute('data-kentekenid');
-                window.location.href = 'searchkenteken1.php?kentekenid=' + kentekenId;
-            });
-        });
-    });
-</script>
 
 </body>
 </html>

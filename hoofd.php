@@ -61,7 +61,7 @@ border: 2px solid lightseagreen;
                     <a class="nav-link" href="kentekenform.php">Kenteken indienen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="beheerdersdashboard.php">Beheerdersdashboard</a>
+                    <a class="nav-link" href="kentekensBeheerder.php">Beheerdersdashboard</a>
                 </li>
                 <li class="nav-item">
                     <?php

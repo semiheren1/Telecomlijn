@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($bedrijfid) {
         // Valid administrator, store the administrator ID in the session
         $_SESSION['bedrijfid'] = $bedrijfid;
-        header("Location: bedrijfdashboard.php");
+        header("Location: bedrijfdashbord.php");
         exit();
     } else {
 

@@ -22,7 +22,7 @@ class bedrijf
 
         $hashedPassword = password_hash($wachtwoord, PASSWORD_DEFAULT);
 
-        $stmt->bind_param("ssssss", $snaam, $email, $adres, $postcode, $hashedPassword);
+        $stmt->bind_param("sssss", $snaam, $email, $adres, $postcode, $hashedPassword);
 
         if ($stmt->execute()) {
             return true;

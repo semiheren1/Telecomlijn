@@ -1,9 +1,8 @@
 <?php
 
-
 require_once 'db.php';
 
-class kenteken
+class controleur
 {
 
     private $conn;
@@ -15,18 +14,18 @@ class kenteken
     }
 
 
-    public function createKenteken($naam, $kenteken, $tijd, $datum, $bedrijf)
+    public function createControleur($email, $wachtwoord)
     {
-        $query = "INSERT INTO kenteken (naam, kenteken, tijd, datum, bedrijf) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO controleur (email, wachtwoord) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
             die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
         }
 
-        $hashedPassword = password_hash($kenteken, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($wachtwoord, PASSWORD_DEFAULT);
 
-        $stmt->bind_param("sssss", $naam, $kenteken, $tijd, $datum, $bedrijf);
+        $stmt->bind_param("ss", $email, $hashedPassword);
 
         if ($stmt->execute()) {
             return true;
@@ -35,9 +34,9 @@ class kenteken
         }
     }
 
-    public function getAlleKentekens()
+    public function getAlleControleurs()
     {
-        $query = "SELECT kentekenid, naam, kenteken, tijd, datum, bedrijf  FROM kenteken";
+        $query = "SELECT controleurid, email, wachtwoord  FROM controleur";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -47,17 +46,17 @@ class kenteken
         $stmt->execute();
         $result = $stmt->get_result();
 
-        $alleBedrijven = array();
+        $alleControleurs = array();
 
         while ($row = $result->fetch_assoc()) {
-            $alleBedrijven[] = $row;
+            $alleControleurs[] = $row;
         }
 
-        return $alleBedrijven;
+        return $alleControleurs;
     }
 
-    public function verwijderKenteken($kentekenid) {
-        $query = "DELETE FROM kenteken WHERE kentekenid = ?";
+    public function verwijderControleur($controleurid) {
+        $query = "DELETE FROM controleur WHERE controleurid = ?";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -66,7 +65,7 @@ class kenteken
             return false;
         }
 
-        $stmt->bind_param("i", $kentekenid);
+        $stmt->bind_param("i", $controleurid);
 
         if (!$stmt->execute()) {
             // Fout bij het uitvoeren van de query
@@ -77,16 +76,16 @@ class kenteken
         return true; // Verwijdering succesvol
     }
 
-    public function zoekKentekenOpId($kentekenid)
+    public function zoekControleurOpId($controleurid)
     {
-        $query = "SELECT kentekenid, naam, kenteken, tijd, datum, bedrijf FROM kenteken WHERE kentekenid = ?";
+        $query = "SELECT controleurid, email FROM controleur WHERE controleurid = ?";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
             die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
         }
 
-        $stmt->bind_param("i", $kentekenid); // 'i' staat voor integer
+        $stmt->bind_param("i", $controleurid); // 'i' staat voor integer
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -97,8 +96,29 @@ class kenteken
         }
     }
 
-    public function updateKenteken($kentekenid, $naam, $kenteken, $tijd, $datum, $bedrijf) {
-        $query = "UPDATE kenteken SET naam = ?, kenteken = ?, tijd = ?, datum = ?, bedrijf = ? WHERE kentekenid = ?";
+    public function zoekWachtwoordOpId($controleurid) {
+        $query = "SELECT wachtwoord FROM controleur WHERE controleurid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+        }
+
+        $stmt->bind_param("i", $controleurid); // 'i' stands for integer
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['wachtwoord']; // Return the hashed password
+        } else {
+            return null; // No controleur found with the specified ID
+        }
+    }
+
+
+    public function updateControleur($controleurid, $email, $wachtwoord) {
+        $query = "UPDATE controleur SET email = ?, wachtwoord WHERE controleurid = ?";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -107,7 +127,7 @@ class kenteken
             return false;
         }
 
-        $stmt->bind_param("sssssi", $naam, $kenteken, $tijd, $datum, $bedrijf, $kentekenid);
+        $stmt->bind_param("ssi", $email, $wachtwoord, $controleurid);
 
         if (!$stmt->execute()) {
             // Error executing query
@@ -117,5 +137,6 @@ class kenteken
 
         return true; // Update successful
     }
+
 
 }

@@ -74,7 +74,12 @@ $recenteKentekens = $beheerders->getRecenteKentekens();
         </div>
 
         <div class="postcard">
-            <h2><a href="bedrjivenBeheerder.php.php">Bedrijven</a></h2>
+            <h2><a href="bedrjivenBeheerder.php">Bedrijven</a></h2>
+            <p></p>
+        </div>
+
+        <div class="postcard">
+            <h2><a href="controleurBeheerder.php.php">Controleurs</a></h2>
             <p></p>
         </div>
 

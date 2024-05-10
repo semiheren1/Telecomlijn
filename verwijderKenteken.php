@@ -3,10 +3,10 @@ session_start();
 require_once 'kenteken.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kentekenid'])) {
+    $kenteken = new kenteken();
     $kentekenid = $_POST['kentekenid'];
 
-    $kentekens = new Kenteken(); // Correct class instantiation
-    if ($kentekens->verwijderKenteken($kentekenid)) {
+    if ($kenteken->verwijderKenteken($kentekenid)) {
         // Return a success response
         http_response_code(200);
         exit();
@@ -16,5 +16,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kentekenid'])) {
         exit();
     }
 }
-
 ?>

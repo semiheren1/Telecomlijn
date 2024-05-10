@@ -5,7 +5,7 @@ require_once 'kenteken.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $kenteken = new Kenteken();
+    $kenteken = new kenteken();
     $kentekenInfo = $kenteken->createKenteken($_POST['naam'], $_POST['kenteken'], $_POST['tijd'], $_POST['datum'], $_POST['bedrijf']);
 
     $message = "Kenteken succesvol toegevoegd. Kenteken ID: {$kentekenInfo['kentekenid']}";

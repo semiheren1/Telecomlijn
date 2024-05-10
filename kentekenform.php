@@ -21,15 +21,6 @@ require_once 'hoofd.php';
     <h2 class="mt-3">Kentekenformulier</h2>
     <form action="createkenteken.php" method="post" enctype="multipart/form-data">
 
-<!--        <div class="mb-3">-->
-<!--            <label for="titel" class="form-label">Titel:</label>-->
-<!--            <select class="form-select" id="titel" name="titel" required>-->
-<!--                <option value="omgewaaide_bomen">Omgewaaide Bomen</option>-->
-<!--                <option value="kapotte_straatverlichting">Kapotte Straatverlichting</option>-->
-<!--                <option value="zwerfvuil">Zwerfvuil</option>-->
-<!--                <option value="anders">Anders</option>-->
-<!--            </select>-->
-<!--        </div>-->
 
         <div class="mb-3">
             <label for="naam" class="form-label">Naam:</label>

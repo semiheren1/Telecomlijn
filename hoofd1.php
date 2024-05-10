@@ -61,17 +61,14 @@
                     <a class="nav-link" href="beheerdersdashboard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="searchklenteken1.php">Zoeken</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="kentekensBeheerder.php">Kentekens</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="bedrijvenBeheerder.php">Bedrijven</a>
+                    <a class="nav-link" href="bedrjivenBeheerder.php">Bedrijven</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="controleursBeheerder.php">Controleurs</a>
+                    <a class="nav-link" href="controleurBeheerder.php">Controleurs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="beheerdersprofiel.php">Beheerdersprofiel</a>

@@ -1,15 +1,15 @@
 <?php
 session_start();
 require_once 'hoofd1.php';
-require_once 'kenteken.php';
+require_once 'controleur.php';
 
 if (!isset($_SESSION['beheerderid'])) {
     header("Location: beheerderlogin.php");
     exit();
 }
 
-$kentekens = new kenteken();
-$alleKentekens = $kentekens->getAlleKentekens();
+$controleur = new controleur();
+$allecontroleurs = $controleur->getAlleControleurs();
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -88,85 +88,76 @@ $alleKentekens = $kentekens->getAlleKentekens();
             text-decoration: none;
             color: lightseagreen;
         }
-
     </style>
 </head>
 <body>
 
-<h2>Kentekens</h2>
+<h2>Controleur</h2>
 
 <table id="kentekenTable">
     <tr>
-        <th>Kenteken ID</th>
-        <th>Naam</th>
-        <th>Kenteken</th>
-        <th>Tijd</th>
-        <th>Datum</th>
-        <th>Bedrijf</th>
+        <th>Bedrjif ID</th>
+        <th>email</th>
+        <th>Wachtwoord</th>
         <th>Acties</th>
-
 
 
     </tr>
 
-    <?php foreach ($alleKentekens as $kenteken): ?>
-        <tr class="kentekenRow" data-kentekenid="<?php echo $kenteken['kentekenid']; ?>">
-            <td><?php echo $kenteken['kentekenid']; ?></td>
-            <td><?php echo $kenteken['naam']; ?></td>
-            <td><?php echo $kenteken['kenteken']; ?></td>
-            <td><?php echo $kenteken['tijd']; ?></td>
-            <td><?php echo $kenteken['datum']; ?></td>
-            <td><?php echo $kenteken['bedrijf']; ?></td>
+    <?php foreach ($allecontroleurs as $controleur): ?>
+        <tr class="bedrijfRow" data-controleurid="<?php echo $controleur['controleurid']; ?>">
+            <td><?php echo $controleur['controleurid']; ?></td>
+            <td><?php echo $controleur['email']; ?></td>
+            <td><?php echo $controleur['wachtwoord']; ?></td>
             <td>
-                <button class="tabelButton" onclick="editKenteken(<?php echo $kenteken['kentekenid']; ?>)">Bewerken</button>
-                <button class="tabelButton" onclick="deleteKenteken(<?php echo $kenteken['kentekenid']; ?>)">Verwijderen</button>
+                <button class="tabelButton" onclick="editControleur(<?php echo $controleur['controleurid']; ?>)">Bewerken</button>
+                <button class="tabelButton" onclick="deleteControleur(<?php echo $controleur['controleurid']; ?>)">Verwijderen</button>
 
             </td>
 
         </tr>
     <?php endforeach; ?>
 
-
     <script>
-        function editKenteken(kentekenid) {
-            window.location.href = 'bewerkenKenteken.php?kentekenid=' + kentekenid;
+        function editControleur(controleurid) {
+            window.location.href = 'bewerkenControleur.php?controleurid=' + controleurid;
         }
 
-        function deleteKenteken(kentekenid) {
-            console.log('Deleting kenteken with ID:', kentekenid);
+        function deleteControleur(controleurid) {
+            console.log('Deleting controleur with ID:', controleurid);
 
-            if (confirm('Weet je zeker dat je dit kenteken wilt verwijderen?')) {
+            if (confirm('Weet je zeker dat je deze controleur wilt verwijderen?')) {
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'verwijderKenteken.php', true);
+                xhr.open('POST', 'verwijderControleur.php', true);
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 xhr.onload = function () {
                     if (xhr.status === 200) {
-                        console.log('Kenteken successfully deleted');
+                        console.log('Controleur successfully deleted');
                         // Reload the page after successful deletion
                         window.location.reload();
                     } else {
-                        console.error('Error deleting kenteken:', xhr.statusText);
-                        alert('Er is een probleem opgetreden bij het verwijderen van het kenteken.');
+                        console.error('Error deleting controleur:', xhr.statusText);
+                        alert('Er is een probleem opgetreden bij het verwijderen van het controleur.');
                     }
                 };
-                xhr.send('kentekenid=' + kentekenid);
+                xhr.send('controleurid=' + controleurid);
             }
         }
 
 
     </script>
-
-
 </table>
+
 
 <div id="container">
     <div id="postcard-container">
         <div class="postcard">
-            <h2><a href="kentekenform.php">Kenteken Aanmaken</a></h2>
+            <h2><a href="controleurForm.php">Controleur Aanmaken</a></h2>
             <p></p>
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

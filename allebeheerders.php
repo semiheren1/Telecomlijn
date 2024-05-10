@@ -100,11 +100,11 @@ $alleBeheerders = $beheerders->getAlleBeheerders();
         function deleteBeheerder(beheerderid) {
             if (confirm('Weet je zeker dat je deze beheerder wilt verwijderen?')) {
                 // Send AJAX request to delete_beheerder.php
-                var xhr = new XMLHttpRequest();
+                let xhr = new XMLHttpRequest();
                 xhr.open('POST', 'verwijderBeheerder.php', true);
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 xhr.onload = function () {
-                    if (xhr.status == 200) {
+                    if (xhr.status === 200) {
                         // Reload the page after successful deletion
                         window.location.reload();
                     } else {

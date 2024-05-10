@@ -1,9 +1,10 @@
-        $stmt = $this->conn->prepare($query);
 <?php
+
 require_once 'db.php';
 
-class bedrijf
+class controleur
 {
+
     private $conn;
 
     public function __construct()
@@ -13,9 +14,9 @@ class bedrijf
     }
 
 
-     public function createBedrijf($naam, $email, $adres, $postcode, $wachtwoord)
+    public function createControleur($email, $wachtwoord)
     {
-        $query = "INSERT INTO bedrijf (naam, email, adres, postcode, wachtwoord) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO controleur (email, wachtwoord) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -24,7 +25,7 @@ class bedrijf
 
         $hashedPassword = password_hash($wachtwoord, PASSWORD_DEFAULT);
 
-        $stmt->bind_param("sssss", $naam, $email, $adres, $postcode, $hashedPassword);
+        $stmt->bind_param("ss", $email, $hashedPassword);
 
         if ($stmt->execute()) {
             return true;
@@ -33,29 +34,29 @@ class bedrijf
         }
     }
 
-     public function getAlleBedrijven()
-     {
-         $query = "SELECT bedrijfid, naam, email, adres, postcode, wachtwoord  FROM bedrijf";
-         $stmt = $this->conn->prepare($query);
+    public function getAlleControleurs()
+    {
+        $query = "SELECT controleurid, email, wachtwoord  FROM controleur";
+        $stmt = $this->conn->prepare($query);
 
-         if (!$stmt) {
-             die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
-         }
+        if (!$stmt) {
+            die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+        }
 
-         $stmt->execute();
-         $result = $stmt->get_result();
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-         $alleBedrijven = array();
+        $alleControleurs = array();
 
-         while ($row = $result->fetch_assoc()) {
-             $alleBedrijven[] = $row;
-         }
+        while ($row = $result->fetch_assoc()) {
+            $alleControleurs[] = $row;
+        }
 
-         return $alleBedrijven;
-     }
+        return $alleControleurs;
+    }
 
-    public function verwijderBedrijf($bedrijfid) {
-        $query = "DELETE FROM bedrijf WHERE bedrijfid = ?";
+    public function verwijderControleur($controleurid) {
+        $query = "DELETE FROM controleur WHERE controleurid = ?";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -64,7 +65,7 @@ class bedrijf
             return false;
         }
 
-        $stmt->bind_param("i", $bedrijfid);
+        $stmt->bind_param("i", $controleurid);
 
         if (!$stmt->execute()) {
             // Fout bij het uitvoeren van de query
@@ -75,16 +76,16 @@ class bedrijf
         return true; // Verwijdering succesvol
     }
 
-    public function zoekBedrijfOpId($bedrijfid)
+    public function zoekControleurOpId($controleurid)
     {
-        $query = "SELECT bedrijfid, naam, email, adres, postcode FROM bedrijf WHERE bedrijfid = ?";
+        $query = "SELECT controleurid, email FROM controleur WHERE controleurid = ?";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
             die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
         }
 
-        $stmt->bind_param("i", $bedrijfid); // 'i' staat voor integer
+        $stmt->bind_param("i", $controleurid); // 'i' staat voor integer
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -95,8 +96,29 @@ class bedrijf
         }
     }
 
-    public function updateBedrijf($bedrijfid, $naam, $email, $adres, $postcode) {
-        $query = "UPDATE bedrijf SET naam = ?, email = ?, adres = ?, postcode = ? WHERE bedrijfid = ?";
+    public function zoekWachtwoordOpId($controleurid) {
+        $query = "SELECT wachtwoord FROM controleur WHERE controleurid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+        }
+
+        $stmt->bind_param("i", $controleurid); // 'i' stands for integer
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['wachtwoord']; // Return the hashed password
+        } else {
+            return null; // No controleur found with the specified ID
+        }
+    }
+
+
+    public function updateControleur($controleurid, $email, $wachtwoord) {
+        $query = "UPDATE controleur SET email = ?, wachtwoord WHERE controleurid = ?";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -105,7 +127,7 @@ class bedrijf
             return false;
         }
 
-        $stmt->bind_param("ssssi", $naam, $email, $adres, $postcode, $bedrijfid);
+        $stmt->bind_param("ssi", $email, $wachtwoord, $controleurid);
 
         if (!$stmt->execute()) {
             // Error executing query
@@ -117,7 +139,4 @@ class bedrijf
     }
 
 
-
 }
-
-

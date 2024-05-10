@@ -1,12 +1,12 @@
 <?php
-require_once 'kenteken.php';
-require_once 'hoofd.php';
+require_once 'bedrijf.php';
+require_once 'hoofd1.php';
 ?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Kentekenformulier</title>
+    <title>Bedrijf Aanmaken</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-rSWY5G/6S2X8K2V5/6S2D/jJb8tcPfVugWCPtgaU8BwhBIJjNqcyzy3W6F5wEWTl"
@@ -18,8 +18,8 @@ require_once 'hoofd.php';
 </head>
 <body>
 <div class="container">
-    <h2 class="mt-3">Kentekenformulier</h2>
-    <form action="createkenteken.php" method="post" enctype="multipart/form-data">
+    <h2 class="mt-3">Bedrijf Aanmaken</h2>
+    <form action="createBedrijf.php" method="post" enctype="multipart/form-data">
 
 
         <div class="mb-3">
@@ -28,30 +28,30 @@ require_once 'hoofd.php';
         </div>
 
         <div class="mb-3">
-            <label for="kenteken" class="form-label">Kenteken:</label>
-            <input class="form-control" id="kenteken" name="kenteken" required></input>
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required></input>
         </div>
 
         <div class="mb-3">
-            <label for="bedrijf" class="form-label">Bedrijf:</label>
-            <input class="form-control" id="bedrijf" name="bedrijf" required></input>
+            <label for="adres" class="form-label">Adres:</label>
+            <input class="form-control" id="adres" name="adres" required></input>
         </div>
 
         <div class="mb-3">
-            <label for="datum" class="form-label">Datum:</label>
-            <input type="date" class="form-control" id="datum" name="datum" required>
+            <label for="postcode" class="form-label">postcode:</label>
+            <input type="text" class="form-control" id="postcode" name="postcode" required>
         </div>
 
         <div class="mb-3">
-            <label for="tijd" class="form-label">Tijd:</label>
-            <input type="time" class="form-control" id="tijd" name="tijd" required>
+            <label for="password" class="form-label">Wachtwoord:</label>
+            <input type="password" id="password" name="password" class="form-control">
         </div>
 
-<!--        <button type="button" class="btn btn-primary" onclick="requestLocationPermission()">Toestemming locatie</button>-->
-        <input type="submit" class="btn btn-success" value="Verstuur kenteken">
+        <!--        <button type="button" class="btn btn-primary" onclick="requestLocationPermission()">Toestemming locatie</button>-->
+        <input type="submit" class="btn btn-success" value="Verstuur bedrijf">
     </form>
 
-<!--    <div id="map" class="mt-3" style="height: 350px;"></div>-->
+    <!--    <div id="map" class="mt-3" style="height: 350px;"></div>-->
 </div>
 
 
@@ -62,7 +62,6 @@ require_once 'hoofd.php';
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
-
 <?php
 require_once 'voet.php';
 ?>

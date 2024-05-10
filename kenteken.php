@@ -1,9 +1,11 @@
 <?php
 
+
 require_once 'db.php';
 
-class Kenteken
+class kenteken
 {
+
     private $conn;
 
     public function __construct()
@@ -12,10 +14,9 @@ class Kenteken
         $this->conn = $dbConnection->getConnection();
     }
 
-    public function createKenteken($naam, $kenteken, $tijd, $datum, $bedrijf )
+
+    public function createKenteken($naam, $kenteken, $tijd, $datum, $bedrijf)
     {
-
-
         $query = "INSERT INTO kenteken (naam, kenteken, tijd, datum, bedrijf) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
 
@@ -23,52 +24,98 @@ class Kenteken
             die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
         }
 
+        $hashedPassword = password_hash($kenteken, PASSWORD_DEFAULT);
+
         $stmt->bind_param("sssss", $naam, $kenteken, $tijd, $datum, $bedrijf);
 
         if ($stmt->execute()) {
-            $kentekenid = $stmt->insert_id;
-            return ["kentekenid" => $kentekenid];
+            return true;
         } else {
             die("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
         }
     }
 
-    public function verwijderOudeKentekens()
+    public function getAlleKentekens()
     {
-        $vervaltermijn = strtotime("-14 days");
-        $vervaltermijnDatum = date("Y-m-d", $vervaltermijn);
-
-        $query = "DELETE FROM kenteken WHERE datum < ?";
+        $query = "SELECT kentekenid, naam, kenteken, tijd, datum, bedrijf  FROM kenteken";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
             die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
         }
 
-        $stmt->bind_param("s", $vervaltermijnDatum);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if ($stmt->execute()) {
-            // Verwijderen van oude Kenteken succesvol
-        } else {
-            die("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
+        $alleBedrijven = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $alleBedrijven[] = $row;
         }
+
+        return $alleBedrijven;
     }
-    public function deleteKenteken($kentekenid)
-    {
-        $query = "DELETE FROM kenteken WHERE kentkenid = ?";
+
+    public function verwijderKenteken($kentekenid) {
+        $query = "DELETE FROM kenteken WHERE kentekenid = ?";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
-            die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+            // Fout bij het voorbereiden van de query
+            error_log("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+            return false;
         }
 
         $stmt->bind_param("i", $kentekenid);
 
-        if ($stmt->execute()) {
-            // Kenteken succesvol verwijderd
+        if (!$stmt->execute()) {
+            // Fout bij het uitvoeren van de query
+            error_log("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
+            return false;
+        }
+
+        return true; // Verwijdering succesvol
+    }
+
+    public function zoekKentekenOpId($kentekenid)
+    {
+        $query = "SELECT kentekenid, naam, kenteken, tijd, datum, bedrijf FROM kenteken WHERE kentekenid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+        }
+
+        $stmt->bind_param("i", $kentekenid); // 'i' staat voor integer
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc(); // Retourneer de gevonden beheerdergegevens
         } else {
-            die("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
+            return null; // Geen beheerder gevonden met het opgegeven ID
         }
     }
+
+    public function updateKenteken($kentekenid, $naam, $kenteken, $tijd, $datum, $bedrijf) {
+        $query = "UPDATE kenteken SET naam = ?, kenteken = ?, tijd = ?, datum = ?, bedrijf = ? WHERE kentekenid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            // Error preparing query
+            error_log("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+            return false;
+        }
+
+        $stmt->bind_param("sssssi", $naam, $kenteken, $tijd, $datum, $bedrijf, $kentekenid);
+
+        if (!$stmt->execute()) {
+            // Error executing query
+            error_log("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
+            return false;
+        }
+
+        return true; // Update successful
+    }
+
 }
-?>

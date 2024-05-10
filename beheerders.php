@@ -31,7 +31,7 @@ class Beheerders
         }
     }
 
-    public function validateBeheerder($gebruikersnaam, $wachtwoord)
+    public function validatebeheerder($gebruikersnaam, $wachtwoord)
     {
         $query = "SELECT beheerderid, wachtwoord FROM beheerders WHERE gebruikersnaam = ?";
         $stmt = $this->conn->prepare($query);
@@ -57,6 +57,7 @@ class Beheerders
         return false; // Ongeldige beheerder
     }
 
+
     public function gebruikersnaamInGebruikVoorBeheerders($gebruikersnaam)
     {
         return $this->gebruikersnaamInGebruik($gebruikersnaam, 'beheerders');
@@ -81,7 +82,7 @@ class Beheerders
 
     public function zoekKentekenOpId($kentekenid)
     {
-        $query = "SELECT kentekenid, titel, beschrijving, datum, Email, latitude, longitude FROM kentekens WHERE kentekenid = ?";
+        $query = "SELECT kentekenid, naam, kenteken, tijd, datum, bedrijf FROM kentekens WHERE kentekenid = ?";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -101,7 +102,7 @@ class Beheerders
 
     public function getRecenteKentekens()
     {
-        $query = "SELECT kentekenid, titel, beschrijving, datum, Email, latitude, longitude FROM kentekens ORDER BY datum DESC LIMIT 5";
+        $query = "SELECT kentekenid, naam, kenteken, tijd, datum, bedrijf  FROM kenteken ORDER BY datum DESC LIMIT 5";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -123,7 +124,7 @@ class Beheerders
 
     public function getAlleKentekens()
     {
-        $query = "SELECT kentekenid, titel, beschrijving, datum, Email, latitude, longitude FROM kentekens";
+        $query = "SELECT kentekenid, naam, kenteken, tijd, datum, bedrijf  FROM kenteken";
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
@@ -141,6 +142,114 @@ class Beheerders
 
         return $alleKentekens;
     }
+
+    public function getAlleBeheerders()
+    {
+        $query = "SELECT beheerderid, gebruikersnaam, wachtwoord, voornaam, achternaam, email  FROM beheerders";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $alleBeheerders = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $alleBeheerders[] = $row;
+        }
+
+        return $alleBeheerders;
+    }
+
+    public function updateBeheerder($beheerderid, $gebruikersnaam, $wachtwoord, $voornaam, $achternaam, $email) {
+        $query = "UPDATE beheerders SET gebruikersnaam = ?, wachtwoord = ?, voornaam = ?, achternaam = ?, email = ? WHERE beheerderid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            // Error preparing query
+            error_log("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+            return false;
+        }
+
+        $stmt->bind_param("sssssi", $gebruikersnaam, $wachtwoord, $voornaam, $achternaam, $email, $beheerderid);
+
+        if (!$stmt->execute()) {
+            // Error executing query
+            error_log("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
+            return false;
+        }
+
+        return true; // Update successful
+    }
+
+    public function verwijderBeheerder($beheerderid) {
+        $query = "DELETE FROM beheerders WHERE beheerderid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            // Fout bij het voorbereiden van de query
+            error_log("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+            return false;
+        }
+
+        $stmt->bind_param("i", $beheerderid);
+
+        if (!$stmt->execute()) {
+            // Fout bij het uitvoeren van de query
+            error_log("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
+            return false;
+        }
+
+        return true; // Verwijdering succesvol
+    }
+
+
+    public function updateKenteken($kentekenid, $naam, $kenteken, $tijd, $datum, $bedrijf) {
+        $query = "UPDATE kenteken SET naam = ?, kenteken = ?, tijd = ?, datum = ?, bedrijf = ? WHERE kentekenid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            // Error preparing query
+            error_log("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+            return false;
+        }
+
+        $stmt->bind_param("sass", $naam, $kenteken, $tijd, $datum, $bedrijf, $kentekenid);
+
+        if (!$stmt->execute()) {
+            // Error executing query
+            error_log("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
+            return false;
+        }
+
+        return true; // Update successful
+    }
+
+    public function verwijderKenteken($kentekenid) {
+        $query = "DELETE FROM kenteken WHERE kentekenid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            // Fout bij het voorbereiden van de query
+            error_log("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+            return false;
+        }
+
+        $stmt->bind_param("i", $beheerderid);
+
+        if (!$stmt->execute()) {
+            // Fout bij het uitvoeren van de query
+            error_log("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
+            return false;
+        }
+
+        return true; // Verwijdering succesvol
+    }
+
+
     public function updateBeheerderVoornaam($beheerderid, $nieuweVoornaam)
     {
         $query = "UPDATE beheerders SET voornaam = ? WHERE beheerderid = ?";
@@ -212,6 +321,26 @@ class Beheerders
             return $result->fetch_assoc(); // Retourneer de gevonden beheerdergegevens
         } else {
             return null; // Geen beheerder gevonden met het opgegeven ID
+        }
+    }
+
+    public function zoekWachtwoordOpId($beheerderid) {
+        $query = "SELECT wachtwoord FROM beheerders WHERE beheerderid = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            die("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
+        }
+
+        $stmt->bind_param("i", $beheerderid); // 'i' stands for integer
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['wachtwoord']; // Return the hashed password
+        } else {
+            return null; // No beheerder found with the specified ID
         }
     }
 

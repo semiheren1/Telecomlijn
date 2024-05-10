@@ -58,10 +58,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="searchklenteken1.php">Kenteken</a>
+                    <a class="nav-link" href="beheerdersdashboard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="beheerdersdashboard.php">Beheerdersdashboard</a>
+                    <a class="nav-link" href="kentekensBeheerder.php">Kentekens</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="bedrjivenBeheerder.php">Bedrijven</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="controleurBeheerder.php">Controleurs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="beheerdersprofiel.php">Beheerdersprofiel</a>

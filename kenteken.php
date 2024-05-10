@@ -58,7 +58,6 @@ class Kenteken
         $stmt = $this->conn->prepare($query);
 
         if (!$stmt) {
-            // Error preparing query
             error_log("Voorbereiden mislukt: (" . $this->conn->errno . ") " . $this->conn->error);
             return false;
         }
@@ -67,13 +66,13 @@ class Kenteken
         $stmt->bind_param("sssssi", $naam, $kenteken, $tijd, $datum, $bedrijf, $kentekenid);
 
         if (!$stmt->execute()) {
-            // Error executing query
             error_log("Uitvoeren mislukt: (" . $stmt->errno . ") " . $stmt->error);
             return false;
         }
 
         return true; // Update successful
     }
+
 
 
     public function verwijderKenteken($kentekenid) {

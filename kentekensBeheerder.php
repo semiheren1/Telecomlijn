@@ -76,9 +76,6 @@ $recenteKentekens = $kentekens->getRecenteKentekens();
 
 
     </tr>
-    <?php
-    var_dump($_POST);
-    ?>
 
 
     <?php foreach ($recenteKentekens as $kenteken): ?>

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['kentekenid'])) {
 }
 
 
-// Handle form submission for updating administrator details
+// Handle form submission for updating kenteken details
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     // Retrieve form data
     $kentekenid = $_POST['kentekenid'];
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
             header("Location: kentekensBeheerder.php"); // Redirect back to dashboard after successful update
             exit();
         } else {
-            $error = "Er is een fout opgetreden bij het bijwerken van de beheerder.";
+            $error = "Er is een fout opgetreden bij het bijwerken van het kenteken.";
         }
 
 }
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     <?php endif; ?>
 
     <form method="post" class="row g-3">
-        <input type="hidden" name="kentekenid" value="<?php echo $kentekenid; ?>">
+        <input type="hidden" name="kentekenid" value="<?php echo htmlspecialchars($kentekenid); ?>">
 
         <div class="col-md-6">
             <label for="naam" class="form-label">Naam:</label>

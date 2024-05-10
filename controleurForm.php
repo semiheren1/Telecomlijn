@@ -27,7 +27,6 @@ require_once 'hoofd1.php';
             <input type="email" class="form-control" id="email" name="email" required></input>
         </div>
 
-        <div class="mb-3">
             <label for="password" class="form-label">Wachtwoord:</label>
             <input type="password" id="password" name="password" class="form-control">
         </div>

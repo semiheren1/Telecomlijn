@@ -62,55 +62,7 @@ require_once 'hoofd.php';
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
-<script>
-    var map = L.map('map').setView([0, 0], 2);
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    function updateLocation(latitude, longitude) {
-        var userLatLng = [latitude, longitude];
-        map.setView(userLatLng, 15);
-
-        L.marker(userLatLng).addTo(map)
-            .bindPopup('Je bent hier!')
-            .openPopup();
-
-        document.getElementById('latitude').value = latitude;
-        document.getElementById('longitude').value = longitude;
-    }
-
-    function requestLocationPermission() {
-        navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
-            if (result.state === 'granted') {
-                getCurrentLocation();
-            } else if (result.state === 'prompt') {
-                navigator.geolocation.getCurrentPosition(
-                    function (position) {
-                        getCurrentLocation();
-                    },
-                    function (error) {
-                        console.error("Error getting location:", error);
-                    }
-                );
-            }
-        });
-    }
-
-    function getCurrentLocation() {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-                updateLocation(latitude, longitude);
-            },
-            function (error) {
-                console.error("Error getting location:", error);
-            }
-        );
-    }
-</script>
 <?php
 require_once 'voet.php';
 ?>

@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fda059-3349-48bc-9a77-2f95dcb0a26f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/allebeheerders.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bedrjivenBeheerder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bewerkenBeheerder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kentekensBeheerder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/verwijderBeheerder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beheerderregister.php" beforeDir="false" afterPath="$PROJECT_DIR$/beheerderregister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beheerders.php" beforeDir="false" afterPath="$PROJECT_DIR$/beheerders.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beheerdersdashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/beheerdersdashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beheerderspagina.php" beforeDir="false" afterPath="$PROJECT_DIR$/beheerderspagina.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gemeentefoto.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/gemeentefoto.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoofd.php" beforeDir="false" afterPath="$PROJECT_DIR$/hoofd.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoofd1.php" beforeDir="false" afterPath="$PROJECT_DIR$/hoofd1.php" afterDir="false" />
-    </list>
+    <list default="true" id="c8fda059-3349-48bc-9a77-2f95dcb0a26f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,20 +31,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "admin",
-    "last_opened_file_path": "C:/xampp/htdocs/Telecomlijn",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;admin&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/Telecomlijn&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\Telecomlijn\vendor" />
@@ -86,6 +72,7 @@
       <updated>1714992917601</updated>
       <workItem from="1714992918664" duration="34967000" />
       <workItem from="1715252517311" duration="9101000" />
+      <workItem from="1715328108276" duration="9710000" />
     </task>
     <servers />
   </component>

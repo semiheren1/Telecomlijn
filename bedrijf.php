@@ -1,3 +1,4 @@
+        $stmt = $this->conn->prepare($query);
 <?php
 require_once 'db.php';
 

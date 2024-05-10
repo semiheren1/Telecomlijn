@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once 'Beheerders.php';
+require_once 'beheerders.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gebruikersnaam = $_POST['gebruikersnaam'];
@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $beheerders = new Beheerders();
     $beheerderid = $beheerders->validateBeheerder($gebruikersnaam, $wachtwoord);
+    var_dump($beheerders);
 
     if ($beheerderid) {
         // Geldige beheerder, sla de beheerderid op in de sessie
@@ -18,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Ongeldige inloggegevens
         $error = "Ongeldige inloggegevens. Probeer het opnieuw.";
+        var_dump($beheerders);
+
     }
 }
 ?>

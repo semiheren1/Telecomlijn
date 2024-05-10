@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemeentebabalar</title>
+    <title>Telecomlijn</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -60,10 +58,17 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="searchklenteken1.php">Kenteken</a>
+                    <a class="nav-link" href="beheerdersdashboard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="beheerdersdashboard.php">Beheerdersdashboard</a>
+                    <a class="nav-link" href="kentekensBeheerder.php">Kentekens</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="bedrjivenBeheerder.php">Bedrijven</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="controleurBeheerder.php">Controleurs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="beheerdersprofiel.php">Beheerdersprofiel</a>

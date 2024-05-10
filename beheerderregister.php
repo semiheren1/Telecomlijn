@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the username is already in use for administrators
     if (!$beheerders->gebruikersnaamInGebruikVoorBeheerders($gebruikersnaam)) {
         // Check if the email address has the correct domain
-        if (endsWith($email, "@urbanindustries.nl")) {
+        if (endsWith($email, "@urban.nl")) {
             // Attempt to create the administrator
             if ($beheerders->create($gebruikersnaam, $wachtwoord, $voornaam, $achternaam, $email)) {
                 header("Location: beheerderlogin.php?success=1"); // Redirect to login with success flag
